@@ -1,0 +1,34 @@
+# Decap CMS (formerly Netlify CMS). Local use: run `npx decap-server` and `npm start`, then open /admin/.
+# /admin/index.html is not shipped: add it per https://decapcms.org/docs/install-decap-cms/ when you want the editor.
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: src/assets/images/uploads
+public_folder: /assets/images/uploads
+
+collections:
+  - name: posts
+    label: Blog posts
+    folder: src/blog
+    create: true
+    extension: md
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Date, name: date, widget: datetime }
+      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Body, name: body, widget: markdown }
+  - name: settings
+    label: Store settings
+    files:
+      - name: faqs
+        label: FAQs
+        file: src/_data/faqs.json
+        fields:
+          - label: FAQs
+            name: faqs
+            widget: list
+            fields:
+              - { label: Question, name: q, widget: string }
+              - { label: Answer, name: a, widget: text }

@@ -1,0 +1,5 @@
+:root{
+{%- for name, value in tokens.colors %}--c-{{ name }}:{{ value | safe }};{% endfor %}
+{%- for name, value in tokens.fonts %}--font-{{ name }}:{{ value | safe }};{% endfor %}
+{%- for name, value in tokens.layout %}--{{ name }}:{{ value | safe }};{% endfor %}
+}

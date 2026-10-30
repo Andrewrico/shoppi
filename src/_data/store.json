@@ -1,0 +1,29 @@
+{
+  "currency": "USD",
+  "locale": "en-US",
+  "catalog": {
+    "source": "local",
+    "_comment": "source: 'local' reads src/_data/catalog/*.json. 'shopify' reads the Storefront API at build time when SHOPIFY_STORE_DOMAIN and SHOPIFY_STOREFRONT_TOKEN are set (falls back to local if not)."
+  },
+  "checkout": {
+    "provider": "preview",
+    "_comment": "preview | shopify | stripe-link | endpoint. See docs/checkout.md.",
+    "shopifyDomain": "your-store.myshopify.com",
+    "endpoint": "/api/checkout"
+  },
+  "shipping": {
+    "freeOver": null,
+    "note": "Shipping and taxes are calculated at checkout."
+  },
+  "policies": {
+    "shipping": "Needs your input: describe delivery times and rates here. The chat quotes this text word for word.",
+    "returns": "Needs your input: describe your return window and process here. The chat quotes this text word for word."
+  },
+  "chat": {
+    "name": "Store assistant",
+    "greeting": "Hi! I can help you find products, check your cart or answer questions about the store.",
+    "handoffUrl": "mailto:hello@example.com",
+    "handoffLabel": "Email the team",
+    "endpoint": null
+  }
+}

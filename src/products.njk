@@ -1,0 +1,13 @@
+---
+layout: layouts/base.njk
+title: All products
+description: Browse every product in the store.
+permalink: /products/
+knowledge: true
+---
+<div class="container section">
+  <h1>All products</h1>
+  <div class="product-grid">
+    {%- for product in catalog.products %}{% include "snippets/product-card.njk" %}{% endfor %}
+  </div>
+</div>

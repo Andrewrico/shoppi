@@ -1,0 +1,29 @@
+---js
+{
+  layout: "layouts/base.njk",
+  title: "FAQs",
+  description: "Answers about orders, shipping, returns and accessibility.",
+  permalink: "/faqs/",
+  knowledge: true,
+  eleventyComputed: {
+    jsonLd: (data) => ({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: data.faqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })),
+    }),
+  },
+}
+---
+<div class="container section prose">
+  <h1>FAQs</h1>
+  {%- for faq in faqs %}
+  <details>
+    <summary>{{ faq.q }}</summary>
+    <p>{{ faq.a }}</p>
+  </details>
+  {%- endfor %}
+  <h2>Shipping</h2>
+  <p>{{ store.policies.shipping }} {{ store.shipping.note }}</p>
+  <h2>Returns</h2>
+  <p>{{ store.policies.returns }}</p>
+</div>

@@ -1,0 +1,10 @@
+{
+  "name": "Sample Store",
+  "tagline": "A headless storefront on Eleventy",
+  "description": "A demo storefront built with Shoppi: static pages, a client-side cart, a built-in chat and accessibility tools.",
+  "url": "https://example.com",
+  "lang": "en",
+  "email": "hello@example.com",
+  "themeColor": "#173854",
+  "socials": []
+}

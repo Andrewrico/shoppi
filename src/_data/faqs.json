@@ -1,0 +1,18 @@
+[
+  {
+    "q": "How does the cart work?",
+    "a": "The cart lives in your browser and keeps your items between visits. When you check out you are sent to the store's payment page."
+  },
+  {
+    "q": "Is the store accessible?",
+    "a": "Yes. Pages use proper landmarks, keyboard navigation, visible focus and live-region announcements. The Accessibility button lets you change contrast, text size, spacing and motion."
+  },
+  {
+    "q": "Where is my data stored?",
+    "a": "Your cart and display preferences stay in your browser's local storage. Nothing is sent anywhere until you check out."
+  },
+  {
+    "q": "Can I talk to a person?",
+    "a": "Use the chat button and choose the contact option, or email the address in the footer."
+  }
+]

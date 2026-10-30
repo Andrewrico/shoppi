@@ -1,0 +1,14 @@
+{
+  "contrast": {
+    "label": "High contrast",
+    "colors": { "bg": "#000000", "surface": "#111111", "text": "#ffffff", "muted": "#ffffff", "primary": "#ffff00", "primary-text": "#000000", "accent": "#ffff00", "accent-text": "#000000", "link": "#7fdbff", "border": "#ffffff", "focus": "#ffff00", "danger": "#ff8a8a" }
+  },
+  "dark": {
+    "label": "Dark",
+    "colors": { "bg": "#10161d", "surface": "#1a232d", "text": "#e8edf2", "muted": "#b4c0cc", "primary": "#8cc1f2", "primary-text": "#0b1620", "accent": "#fedb8b", "accent-text": "#10161d", "link": "#8cc1f2", "border": "#3a4857", "focus": "#fedb8b", "danger": "#ff9aa2" }
+  },
+  "sepia": {
+    "label": "Sepia",
+    "colors": { "bg": "#f4ecd8", "surface": "#eadfc4", "text": "#2b2118", "muted": "#4d3f31", "primary": "#5b3a1a", "primary-text": "#ffffff", "link": "#7a2e0e", "border": "#b9a77f", "focus": "#7a2e0e" }
+  }
+}

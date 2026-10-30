@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% set pageTitle = (title + " · " + site.name) if title and page.url != "/" else site.name + " · " + site.tagline %}
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ (description or site.description) | excerpt(160) }}">
+  <meta name="theme-color" content="{{ site.themeColor }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.name }} blog" href="/feed.xml">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ (description or site.description) | excerpt(160) }}">
+  <meta property="og:type" content="{{ 'article' if layout == 'layouts/post.njk' else 'website' }}">
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <script>
+    /* Apply saved display preferences before first paint so nothing flashes. */
+    try {
+      var a = JSON.parse(localStorage.getItem("shoppi.a11y") || "{}"), r = document.documentElement;
+      if (a.theme && a.theme !== "default") r.dataset.a11yTheme = a.theme;
+      if (a.size) r.style.setProperty("--a11y-font-scale", a.size / 100);
+      if (a.spacing) r.style.setProperty("--a11y-line-height", a.spacing);
+      if (a.readableFont) r.dataset.a11yFont = "readable";
+      if (a.underlineLinks) r.dataset.a11yUnderline = "true";
+      if (a.reduceMotion) r.dataset.a11yMotion = "reduce";
+    } catch (e) {}
+  </script>
+  <style>{% include "tokens.css.njk" %}</style>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/commerce.css">
+  <link rel="stylesheet" href="/assets/css/widgets.css">
+  {% if jsonLd %}<script type="application/ld+json">{{ jsonLd | json | safe }}</script>{% endif %}
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  {% include "snippets/header.njk" %}
+  <main id="main-content" tabindex="-1">
+    {{ content | safe }}
+  </main>
+  {% include "snippets/footer.njk" %}
+  {% include "snippets/cart-dialog.njk" %}
+  {% include "snippets/chat.njk" %}
+  {% include "snippets/a11y-widget.njk" %}
+  <script type="application/json" id="store-config">{{ clientConfig | json | safe }}</script>
+  <script type="module" src="/assets/js/main.mjs"></script>
+</body>
+</html>

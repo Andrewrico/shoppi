@@ -1,0 +1,15 @@
+{
+  "main": [
+    { "text": "Shop", "url": "/products/" },
+    { "text": "Collections", "url": "/collections/" },
+    { "text": "Blog", "url": "/blog/" },
+    { "text": "About", "url": "/about/" },
+    { "text": "FAQs", "url": "/faqs/" }
+  ],
+  "footer": [
+    { "text": "Shop all", "url": "/products/" },
+    { "text": "FAQs", "url": "/faqs/" },
+    { "text": "About", "url": "/about/" },
+    { "text": "Blog", "url": "/blog/" }
+  ]
+}

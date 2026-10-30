@@ -1,0 +1,18 @@
+---js
+{
+  layout: "layouts/base.njk",
+  pagination: { data: "catalog.collections", size: 1, alias: "collection" },
+  permalink: "/collections/{{ collection.handle }}/",
+  eleventyComputed: {
+    title: (data) => data.collection.title,
+    description: (data) => data.collection.description,
+  },
+}
+---
+<div class="container section">
+  <h1>{{ collection.title }}</h1>
+  <p>{{ collection.description }}</p>
+  <div class="product-grid">
+    {%- for product in collection.products %}{% include "snippets/product-card.njk" %}{% endfor %}
+  </div>
+</div>

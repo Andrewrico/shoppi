@@ -1,0 +1,15 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+# {{ site.name }}
+
+> {{ site.description }}
+
+## Products
+{% for product in catalog.products %}- [{{ product.title }}]({{ site.url }}{{ product.url }}): {{ product.description }}
+{% endfor %}
+## Information
+- [FAQs]({{ site.url }}/faqs/)
+- [About]({{ site.url }}/about/)
+- [Catalog (JSON)]({{ site.url }}/catalog.json)

@@ -1,0 +1,14 @@
+<article class="product-card">
+  <a class="product-card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">{% include "snippets/product-image.njk" %}</a>
+  {% set tag = cardHeading or "h2" %}<{{ tag }} class="product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></{{ tag }}>
+  <p class="product-card__price">
+    {%- if not product.available %}<span class="badge">Sold out</span>
+    {%- else %}{% if product.priceMin != product.priceMax %}From {% endif %}{{ product.priceMin | money(store.currency, store.locale) }}
+    {%- if product.variants[0].compareAtPrice %} <s><span class="visually-hidden">Regular price </span>{{ product.variants[0].compareAtPrice | money(store.currency, store.locale) }}</s>{% endif %}{% endif -%}
+  </p>
+  {%- if product.available and product.variants.length == 1 %}
+  <button type="button" class="button" data-add-to-cart data-variant-id="{{ product.variants[0].id }}">Add to cart<span class="visually-hidden"> {{ product.title }}</span></button>
+  {%- elif product.available %}
+  <a class="button" href="{{ product.url }}">Choose options<span class="visually-hidden"> for {{ product.title }}</span></a>
+  {%- endif %}
+</article>

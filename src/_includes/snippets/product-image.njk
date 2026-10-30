@@ -1,0 +1,5 @@
+{%- if product.image -%}
+<img src="{{ product.image }}" alt="{{ product.imageAlt }}" width="600" height="600" loading="lazy">
+{%- else -%}
+<svg class="placeholder" viewBox="0 0 600 600" role="img" aria-label="{{ product.title }} (placeholder image)"><rect width="600" height="600" fill="var(--c-surface)"/><text x="300" y="330" text-anchor="middle" font-size="200" font-family="sans-serif" fill="var(--c-primary)">{{ product.title | first }}</text></svg>
+{%- endif -%}

@@ -1,0 +1,5 @@
+# Language stats: tests, scripts and examples are support code, not the product.
+test/** linguist-documentation
+scripts/** linguist-documentation
+examples/** linguist-documentation
+docs/** linguist-documentation

@@ -1,0 +1,51 @@
+[
+  {
+    "handle": "canvas-tote",
+    "title": "Canvas Tote",
+    "description": "A sturdy everyday tote. Sample product: replace with your own.",
+    "collection": "bags",
+    "tags": ["tote", "canvas"],
+    "image": null,
+    "imageAlt": "",
+    "variants": [
+      { "id": "canvas-tote-natural", "title": "Natural", "price": 28.0, "available": true, "shopifyVariantId": "1000000001" },
+      { "id": "canvas-tote-black", "title": "Black", "price": 28.0, "available": true, "shopifyVariantId": "1000000002" }
+    ]
+  },
+  {
+    "handle": "day-backpack",
+    "title": "Day Backpack",
+    "description": "Fits a laptop and a lunch. Sample product.",
+    "collection": "bags",
+    "tags": ["backpack"],
+    "image": null,
+    "imageAlt": "",
+    "variants": [
+      { "id": "day-backpack-default", "title": "Default", "price": 89.0, "compareAtPrice": 110.0, "available": true, "shopifyVariantId": "1000000003" }
+    ]
+  },
+  {
+    "handle": "ceramic-mug",
+    "title": "Ceramic Mug",
+    "description": "Hand-glazed, dishwasher safe. Sample product.",
+    "collection": "home",
+    "tags": ["mug", "kitchen"],
+    "image": null,
+    "imageAlt": "",
+    "variants": [
+      { "id": "ceramic-mug-default", "title": "Default", "price": 18.5, "available": true, "shopifyVariantId": "1000000004" }
+    ]
+  },
+  {
+    "handle": "linen-throw",
+    "title": "Linen Throw",
+    "description": "Soft, heavy linen blanket. Sample product, currently sold out.",
+    "collection": "home",
+    "tags": ["blanket"],
+    "image": null,
+    "imageAlt": "",
+    "variants": [
+      { "id": "linen-throw-default", "title": "Default", "price": 120.0, "available": false, "shopifyVariantId": "1000000005" }
+    ]
+  }
+]

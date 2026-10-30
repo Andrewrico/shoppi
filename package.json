@@ -1,0 +1,28 @@
+{
+  "name": "shoppi",
+  "version": "1.0.0",
+  "description": "Shoppi: headless ecommerce starter for Eleventy: product catalog, cart, built-in HTML chat and accessibility tools. No framework, no bundler.",
+  "private": false,
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "test": "node --test",
+    "check": "node scripts/check.js",
+    "a11y": "node scripts/a11y.js",
+    "verify": "npm run build && npm test && npm run check && npm run a11y"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-plugin-rss": "^2.0.4"
+  },
+  "devDependencies": {
+    "axe-core": "^4.10.0",
+    "jsdom": "^26.0.0"
+  },
+  "repository": { "type": "git", "url": "git+https://github.com/Andrewrico/shoppi.git" },
+  "bugs": { "url": "https://github.com/Andrewrico/shoppi/issues" },
+  "homepage": "https://github.com/Andrewrico/shoppi#readme",
+  "keywords": ["eleventy", "11ty", "headless", "ecommerce", "cart", "accessibility", "jamstack", "shopify"]
+}

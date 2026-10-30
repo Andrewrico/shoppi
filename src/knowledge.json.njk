@@ -1,0 +1,28 @@
+---
+permalink: /knowledge.json
+eleventyExcludeFromCollections: true
+---
+{#- Passages the chat answers from. Everything here is also visible on the site: the chat never says more than the pages do.
+    The final passage has no trailing comma, so keep it last. -#}
+[
+{%- for product in catalog.products %}
+{{ {
+  kind: "product",
+  title: product.title,
+  url: product.url,
+  text: product.description,
+  tags: product.tags,
+  available: product.available,
+  priceLabel: (("from " + (product.priceMin | money(store.currency, store.locale))) if product.priceMin != product.priceMax else (product.priceMin | money(store.currency, store.locale))),
+  variants: product.variants
+} | json | safe }},
+{%- endfor %}
+{%- for faq in faqs %}
+{{ { kind: "faq", title: faq.q, url: "/faqs/", text: faq.a } | json | safe }},
+{%- endfor %}
+{{ { kind: "policy", title: "Shipping", url: "/faqs/", text: (store.policies.shipping + " " + store.shipping.note) | trim } | json | safe }},
+{%- for page in collections.all %}{% set tags = page.data.tags or [] %}{% if page.data.knowledge or "posts" in tags %}
+{{ { kind: ("post" if "posts" in tags else "page"), title: page.data.title, url: page.url, text: (page.data.description or "") } | json | safe }},
+{%- endif %}{% endfor %}
+{{ { kind: "policy", title: "Returns", url: "/faqs/", text: store.policies.returns } | json | safe }}
+]

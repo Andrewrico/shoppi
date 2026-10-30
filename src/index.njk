@@ -1,0 +1,32 @@
+---js
+{
+  layout: "layouts/base.njk",
+  title: "Home",
+  description: "A demo storefront built with Shoppi.",
+  eleventyComputed: {
+    jsonLd: (data) => ({ "@context": "https://schema.org", "@type": "WebSite", name: data.site.name, url: data.site.url }),
+  },
+}
+---
+<section class="hero">
+  <div class="container">
+    <h1>{{ site.name }}</h1>
+    <p class="hero__lead">{{ site.tagline }}. Static pages, a fast cart, a built-in chat and accessibility tools, with no framework to maintain.</p>
+    <a class="button button--primary" href="/products/">Shop all products</a>
+  </div>
+</section>
+<section class="container section" aria-labelledby="featured-title">
+  <h2 id="featured-title">Featured products</h2>
+  {% set cardHeading = "h3" %}
+  <div class="product-grid">
+    {%- for product in catalog.products | head(4) %}{% include "snippets/product-card.njk" %}{% endfor %}
+  </div>
+</section>
+<section class="container section" aria-labelledby="collections-title">
+  <h2 id="collections-title">Shop by collection</h2>
+  <ul class="card-list">
+    {%- for collection in catalog.collections %}
+    <li><a href="{{ collection.url }}">{{ collection.title }}</a><span>{{ collection.description }}</span></li>
+    {%- endfor %}
+  </ul>
+</section>

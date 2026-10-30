@@ -1,0 +1,15 @@
+---
+layout: layouts/base.njk
+title: Blog
+description: News and guides.
+permalink: /blog/
+knowledge: true
+---
+<div class="container section">
+  <h1>Blog</h1>
+  <ul class="card-list">
+    {%- for post in collections.posts %}
+    <li><a href="{{ post.url }}">{{ post.data.title }}</a><span><time datetime="{{ post.date | isoDate }}">{{ post.date | readableDate }}</time> · {{ post.data.description }}</span></li>
+    {%- endfor %}
+  </ul>
+</div>

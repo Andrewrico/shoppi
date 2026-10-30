@@ -1,0 +1,26 @@
+{#- HTML chat: plain markup + src/assets/js/chat.mjs. Answers come from /knowledge.json. -#}
+<div class="chat" data-chat>
+  <section class="chat__panel" data-chat-panel role="dialog" aria-label="Chat with the {{ store.chat.name }}" hidden>
+    <header class="chat__header">
+      <strong>{{ store.chat.name }}</strong>
+      <button type="button" class="icon-button" data-chat-reset aria-label="Start a new chat" title="New chat">&#8635;</button>
+      <button type="button" class="icon-button" data-chat-close aria-label="Close chat">&times;</button>
+    </header>
+    <div class="chat__log" data-chat-log role="log" aria-live="polite" aria-relevant="additions"></div>
+    <div class="chat__chips" data-chat-chips>
+      <button type="button">Show my cart</button>
+      <button type="button">Shipping</button>
+      <button type="button">Returns</button>
+      <button type="button">Talk to a person</button>
+    </div>
+    <form class="chat__form" data-chat-form>
+      <label class="visually-hidden" for="chat-input">Your message</label>
+      <input id="chat-input" data-chat-input type="text" maxlength="300" autocomplete="off" placeholder="Ask about products, shipping…">
+      <button type="submit" class="button button--primary">Send</button>
+    </form>
+    <p class="chat__note">Automated answers from this site's own content.</p>
+  </section>
+  <button type="button" class="chat__launcher" data-chat-launcher aria-expanded="false" aria-label="Chat with the {{ store.chat.name }}">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>
+  </button>
+</div>

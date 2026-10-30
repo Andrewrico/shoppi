@@ -1,0 +1,19 @@
+---
+permalink: /catalog.json
+eleventyExcludeFromCollections: true
+---
+{#- Public catalog: the cart and checkout read variants from here (price, stock, checkout ids). -#}
+{"variants":{
+{%- for variant in catalog.variants %}
+{{ variant.id | json | safe }}:{{ {
+  handle: variant.product.handle,
+  title: variant.product.title,
+  variantTitle: variant.title,
+  price: variant.price,
+  available: variant.available,
+  image: variant.product.image,
+  shopifyVariantId: variant.shopifyVariantId,
+  stripePaymentLink: variant.stripePaymentLink
+} | json | safe }}{{ "," if not loop.last }}
+{%- endfor %}
+}}

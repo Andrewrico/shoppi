@@ -1,0 +1,15 @@
+---
+layout: layouts/base.njk
+title: Collections
+description: Shop by collection.
+permalink: /collections/
+knowledge: true
+---
+<div class="container section">
+  <h1>Collections</h1>
+  <ul class="card-list">
+    {%- for collection in catalog.collections %}
+    <li><a href="{{ collection.url }}">{{ collection.title }}</a><span>{{ collection.description }}</span></li>
+    {%- endfor %}
+  </ul>
+</div>
