@@ -84,7 +84,7 @@ examples/             checkout endpoint (Stripe)
 
 ## Author
 
-<img src="docs/andrew-rico.png" alt="Andrew Rico" width="120" align="left" hspace="12">
+<img src="docs/andrew-rico.png" alt="Andrew Rico" width="140" align="left" hspace="12">
 
 Built by **Andrew Rico**, Shopify eCommerce architect. [andrewrico.com](https://andrewrico.com) runs on the Eleventify theme that Shoppi descends from.
 
