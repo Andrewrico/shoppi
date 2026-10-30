@@ -1,9 +1,35 @@
 {
+  "mode": "store",
+  "_mode_comment": "store: own cart and checkout. affiliate: outbound links to merchants, no cart. Override per build with SHOPPI_MODE.",
   "currency": "USD",
   "locale": "en-US",
   "catalog": {
     "source": "local",
-    "_comment": "source: 'local' reads src/_data/catalog/*.json. 'shopify' reads the Storefront API at build time when SHOPIFY_STORE_DOMAIN and SHOPIFY_STOREFRONT_TOKEN are set (falls back to local if not)."
+    "_comment": "local reads src/_data/catalog/*.json. shopify reads the Storefront API at build time (SHOPIFY_STORE_DOMAIN, SHOPIFY_STOREFRONT_TOKEN). api reads any JSON API. custom loads your own adapter module. feed reads a network CSV/JSON product feed (docs/affiliate.md).",
+    "api": {
+      "_comment": "Generic JSON API. ${VAR} is replaced from the environment, so tokens stay out of this file. Field names may be nested, e.g. \"price.amount\".",
+      "url": "https://api.example.com/v1/products?limit=100",
+      "method": "GET",
+      "headers": { "Authorization": "Bearer ${PRODUCT_API_TOKEN}" },
+      "itemsPath": "data.items",
+      "nextPath": "data.next",
+      "maxPages": 20,
+      "fields": { "handle": "id", "title": "title", "description": "summary", "price": "price.amount", "image": "images.0.url", "affiliateUrl": "links.buy", "category": "category", "available": "in_stock" }
+    },
+    "custom": "lib/sources/example-adapter.js",
+    "feed": {
+      "url": null,
+      "format": "csv",
+      "fields": { "handle": "sku", "title": "name", "description": "description", "price": "price", "image": "image_url", "affiliateUrl": "product_url", "category": "category", "available": "availability" }
+    }
+  },
+  "affiliate": {
+    "merchantLabel": "the store",
+    "buttonLabel": "View on {merchant}",
+    "showPrices": false,
+    "amazonTag": null,
+    "linkTemplate": null,
+    "disclosure": "Needs your input: write your affiliate disclosure here. Links on this site may earn us a commission at no extra cost to you. If you use Amazon Associates, include the exact statement their agreement requires."
   },
   "checkout": {
     "provider": "preview",

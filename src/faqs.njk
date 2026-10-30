@@ -22,8 +22,13 @@
     <p>{{ faq.a }}</p>
   </details>
   {%- endfor %}
+  {%- if mode == "affiliate" %}
+  <h2>Affiliate disclosure</h2>
+  <p>{{ store.affiliate.disclosure }}</p>
+  {%- else %}
   <h2>Shipping</h2>
   <p>{{ store.policies.shipping }} {{ store.shipping.note }}</p>
   <h2>Returns</h2>
   <p>{{ store.policies.returns }}</p>
+  {%- endif %}
 </div>

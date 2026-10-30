@@ -1,4 +1,5 @@
 const pluginRss = require("@11ty/eleventy-plugin-rss");
+const { buildAffiliateUrl } = require("./lib/affiliate");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
@@ -14,6 +15,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("readableDate", (date) =>
     new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(date))
   );
+  eleventyConfig.addFilter("affiliateLink", (url, affiliate) => buildAffiliateUrl(url, affiliate));
   eleventyConfig.addFilter("head", (array, count) => (array || []).slice(0, count));
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value).replace(/</g, "\\u003c"));
   eleventyConfig.addFilter("excerpt", (text, length = 160) => {

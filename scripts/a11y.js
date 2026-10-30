@@ -5,7 +5,7 @@ const path = require("path");
 const { JSDOM } = require("jsdom");
 const axeSource = fs.readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
 
-const OUT = path.join(__dirname, "..", "_site");
+const OUT = path.join(__dirname, "..", process.env.SITE_DIR || "_site");
 const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]));
 const pages = walk(OUT).filter((file) => file.endsWith(".html"));
 

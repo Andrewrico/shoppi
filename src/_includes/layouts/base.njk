@@ -36,11 +36,12 @@
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
   {% include "snippets/header.njk" %}
+  {% if mode == "affiliate" %}{% include "snippets/disclosure.njk" %}{% endif %}
   <main id="main-content" tabindex="-1">
     {{ content | safe }}
   </main>
   {% include "snippets/footer.njk" %}
-  {% include "snippets/cart-dialog.njk" %}
+  {% if mode != "affiliate" %}{% include "snippets/cart-dialog.njk" %}{% endif %}
   {% include "snippets/chat.njk" %}
   {% include "snippets/a11y-widget.njk" %}
   <script type="application/json" id="store-config">{{ clientConfig | json | safe }}</script>

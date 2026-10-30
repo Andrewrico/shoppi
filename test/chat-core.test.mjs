@@ -50,3 +50,12 @@ test("page fallback and empty input", () => {
   assert.equal(answer(kb, "your story and values").links[0].url, "/about/");
   assert.match(answer(kb, "  ").text, /Ask me/);
 });
+
+test("affiliate mode: buying links out, there is no cart", () => {
+  const config = { mode: "affiliate" };
+  const buy = answer(kb, "please add the mug to my cart", { config });
+  assert.equal(buy.actions, undefined);
+  assert.match(buy.text, /where to buy Ceramic Mug/);
+  assert.equal(buy.cards[0].title, "Ceramic Mug");
+  assert.match(answer(kb, "show my cart", { cartCount: 3, config }).text, /no cart on this site/);
+});

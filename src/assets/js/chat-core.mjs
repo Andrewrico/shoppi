@@ -59,6 +59,7 @@ export function answer(kb, question, { cartCount = 0, config = {} } = {}) {
   // "add the mug to my cart" names a product, so it must win over the plain cart intent.
   if (ADD.test(text) && products.length) {
     const { passage } = products[0];
+    if (config.mode === "affiliate") return { text: `Here is where to buy ${passage.title}.`, cards: [passage] };
     if (passage.variants.length === 1) {
       return passage.available
         ? { text: `Adding ${passage.title} to your cart.`, actions: [{ type: "add", variantId: passage.variants[0].id }], cards: [passage] }
@@ -67,6 +68,9 @@ export function answer(kb, question, { cartCount = 0, config = {} } = {}) {
     return { text: `${passage.title} comes in a few options. Pick one on its page.`, cards: [passage] };
   }
 
+  if (intent === "cart" && config.mode === "affiliate") {
+    return { text: "There is no cart on this site. Each product links to the store where you can buy it.", actions: [{ type: "browse" }] };
+  }
   if (intent === "cart") {
     return {
       text: cartCount ? `You have ${cartCount} ${cartCount === 1 ? "item" : "items"} in your cart.` : "Your cart is empty.",

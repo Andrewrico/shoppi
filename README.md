@@ -15,6 +15,7 @@ It combines two earlier projects: **Jam11ty** (the original name of this repo: a
 | **Checkout** | Hands off to your provider: Shopify cart permalink, Stripe Payment Link, or your own endpoint (Stripe Checkout example included). Default is a safe `preview` mode. |
 | **HTML chat** | Plain markup plus one small module. Answers only from your products, FAQs, policies and pages (`/knowledge.json`), can add single-option products to the cart, and hands off to a person. No AI service required; you can point it at your own `endpoint`. |
 | **Accessibility** | Skip link, landmarks, keyboard-first controls, visible focus, 44px targets, live-region announcements, reduced-motion and forced-colors support. A user panel for contrast, dark and sepia themes, text size, line spacing, readable font, underlined links, reading guide and read-aloud. Automated axe-core and contrast checks. |
+| **Affiliate mode** | Switch to outbound affiliate links with a disclosure banner, no cart and hidden prices. Catalog from a network feed, any JSON API, or your own adapter. See [docs/affiliate.md](docs/affiliate.md). |
 | **Also** | Blog with RSS, offline shell service worker, web manifest, Decap CMS config, design tokens in one JSON file. |
 
 ## Quick start
@@ -35,7 +36,8 @@ npm run verify     # build + unit tests + structure checks + axe-core
 | Name, tagline, URL, email | `src/_data/site.json` |
 | Currency, checkout provider, shipping note, policies, chat text | `src/_data/store.json` |
 | Colors, fonts, layout width | `src/_data/tokens.json` |
-| Products and collections | `src/_data/catalog/*.json` (see [docs/catalog.md](docs/catalog.md)) |
+| Products and collections | `src/_data/catalog/*.json`, or a feed, API or adapter (see [docs/catalog.md](docs/catalog.md), [docs/affiliate.md](docs/affiliate.md)) |
+| Store or affiliate mode | `mode` in `src/_data/store.json` |
 | Menus | `src/_data/navigation.json` |
 | FAQs (feed the FAQ page, JSON-LD and the chat) | `src/_data/faqs.json` |
 
@@ -76,7 +78,9 @@ examples/             checkout endpoint (Stripe)
 | `npm test` | Unit tests: cart math, chat answers, catalog mapping, checkout endpoint, color contrast |
 | `npm run check` | Structure checks on the built site (lang, title, one h1, skip link, alt, ids, links, JSON-LD) |
 | `npm run a11y` | axe-core over every built page (WCAG 2.0/2.1 A and AA, best practice) |
+| `npm run verify:affiliate` | Builds affiliate mode and runs the structure and axe checks on it |
 | `node scripts/e2e.mjs` | Optional real-browser test of cart, chat and accessibility panel (needs Playwright) |
+| `node scripts/e2e-affiliate.mjs` | Same for affiliate mode (build it first, see the file header) |
 
 ## Author
 

@@ -4,14 +4,16 @@
     <nav aria-label="Main">
       <ul class="site-nav">
         {%- for item in navigation.main %}
-        <li><a href="{{ item.url }}"{% if page.url == item.url or (item.url != "/" and page.url.startsWith(item.url)) %} aria-current="page"{% endif %}>{{ item.text }}</a></li>
+        <li><a href="{{ item.url }}"{% if page.url and (page.url == item.url or (item.url != "/" and page.url.startsWith(item.url))) %} aria-current="page"{% endif %}>{{ item.text }}</a></li>
         {%- endfor %}
       </ul>
     </nav>
+    {%- if mode != "affiliate" %}
     <a class="cart-button" href="/cart/" data-cart-open aria-haspopup="dialog">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
       <span class="cart-button__count" data-cart-count hidden>0</span>
       <span class="visually-hidden">Cart</span>
     </a>
+    {%- endif %}
   </div>
 </header>

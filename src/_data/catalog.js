@@ -2,19 +2,33 @@ const fs = require("fs");
 const path = require("path");
 const store = require("./store.json");
 const { normalizeProduct, fetchShopify } = require("../../lib/catalog");
+const { loadFeed, loadApi } = require("../../lib/feed");
 
 const readJson = (file) => JSON.parse(fs.readFileSync(path.join(__dirname, "catalog", file), "utf8"));
+const local = () => ({ products: readJson("products.json"), collections: readJson("collections.json") });
+
+// Where the catalog comes from: local JSON, Shopify, a network feed, a JSON API, or your own adapter (docs/catalog.md, docs/affiliate.md).
+async function load() {
+  const { SHOPIFY_STORE_DOMAIN, SHOPIFY_STOREFRONT_TOKEN } = process.env;
+  switch (store.catalog.source) {
+    case "shopify":
+      if (SHOPIFY_STORE_DOMAIN && SHOPIFY_STOREFRONT_TOKEN) return fetchShopify(SHOPIFY_STORE_DOMAIN, SHOPIFY_STOREFRONT_TOKEN);
+      console.warn("[catalog] Shopify credentials missing, using local catalog.");
+      return local();
+    case "feed":
+      return loadFeed(store.catalog.feed);
+    case "api":
+      return loadApi(store.catalog.api);
+    case "custom":
+      // Your own adapter: a module exporting async (env) => ({ products, collections }). Start from lib/sources/example-adapter.js.
+      return require(path.join(__dirname, "../..", store.catalog.custom))(process.env);
+    default:
+      return local();
+  }
+}
 
 module.exports = async function () {
-  let raw;
-  const { SHOPIFY_STORE_DOMAIN, SHOPIFY_STOREFRONT_TOKEN } = process.env;
-  if (store.catalog.source === "shopify" && SHOPIFY_STORE_DOMAIN && SHOPIFY_STOREFRONT_TOKEN) {
-    raw = await fetchShopify(SHOPIFY_STORE_DOMAIN, SHOPIFY_STOREFRONT_TOKEN);
-  } else {
-    if (store.catalog.source === "shopify") console.warn("[catalog] Shopify credentials missing, using local catalog.");
-    raw = { products: readJson("products.json"), collections: readJson("collections.json") };
-  }
-
+  const raw = await load();
   const products = raw.products.map(normalizeProduct);
   const collections = raw.collections.map((collection) => ({
     ...collection,

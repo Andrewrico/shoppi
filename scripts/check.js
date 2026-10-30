@@ -2,7 +2,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const OUT = path.join(__dirname, "..", "_site");
+const OUT = path.join(__dirname, "..", process.env.SITE_DIR || "_site");
+const affiliate = process.env.SHOPPI_MODE === "affiliate";
 const errors = [];
 const fail = (file, message) => errors.push(`${path.relative(OUT, file)}: ${message}`);
 
@@ -38,11 +39,19 @@ for (const file of pages) {
   const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
   if (dupes.length) fail(file, `duplicate ids: ${[...new Set(dupes)].join(", ")}`);
   for (const match of html.matchAll(/<(?:a|link)\b[^>]*\bhref="(\/[^"]*)"/g)) if (!urlExists(match[1])) fail(file, `broken link ${match[1]}`);
+  if (affiliate) {
+    if (!html.includes('class="disclosure"')) fail(file, "affiliate mode: missing disclosure banner");
+    if (html.includes("data-add-to-cart") || html.includes('id="cart-dialog"') || html.includes("data-cart-open")) fail(file, "affiliate mode: cart UI present");
+    for (const link of html.match(/<a\b[^>]*>/g) || []) {
+      if (/target="_blank"/.test(link) && !/rel="[^"]*noopener/.test(link)) fail(file, `target=_blank without noopener: ${link.slice(0, 80)}`);
+      if (/rel="[^"]*sponsored/.test(link) && !/rel="[^"]*nofollow/.test(link)) fail(file, `sponsored link without nofollow: ${link.slice(0, 80)}`);
+    }
+  } else if (html.includes('class="disclosure"')) fail(file, "disclosure banner shown outside affiliate mode");
   if (/\{\{|\{%/.test(html.replace(/<script[\s\S]*?<\/script>/g, ""))) fail(file, "unrendered template tag");
 }
 
 for (const name of ["catalog.json", "knowledge.json", "sitemap.xml", "robots.txt", "llms.txt", "feed.xml", "sw.js"]) {
-  if (!known.has("/" + name)) errors.push(`missing /${name}`);
+  if (!known.has("/" + name) && !(affiliate && name === "cart")) errors.push(`missing /${name}`);
 }
 const catalog = JSON.parse(fs.readFileSync(path.join(OUT, "catalog.json"), "utf8"));
 if (!Object.keys(catalog.variants).length) errors.push("catalog.json has no variants");
@@ -52,4 +61,8 @@ if (errors.length) {
   console.error(`check: ${errors.length} problem(s)\n- ${errors.join("\n- ")}`);
   process.exit(1);
 }
-console.log(`check: ${pages.length} pages OK`);
+if (affiliate) {
+  if (known.has("/cart/index.html")) { console.error("check: affiliate mode must not build /cart/"); process.exit(1); }
+  if (!pages.some((file) => /rel="sponsored nofollow noopener"/.test(fs.readFileSync(file, "utf8")))) { console.error("check: affiliate mode has no sponsored links"); process.exit(1); }
+}
+console.log(`check: ${pages.length} pages OK${affiliate ? " (affiliate mode)" : ""}`);

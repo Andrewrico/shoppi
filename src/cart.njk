@@ -1,9 +1,12 @@
----
-layout: layouts/base.njk
-title: Your cart
-description: Review your cart and check out.
-permalink: /cart/
-eleventyExcludeFromCollections: true
+---js
+{
+  layout: "layouts/base.njk",
+  title: "Your cart",
+  description: "Review your cart and check out.",
+  eleventyExcludeFromCollections: true,
+  // No cart page in affiliate mode: returning false skips the file.
+  eleventyComputed: { permalink: (data) => (data.mode === "affiliate" ? false : "/cart/") },
+}
 ---
 <div class="container section">
   <h1>Your cart</h1>

@@ -1,0 +1,7 @@
+{#- Outbound affiliate link. Needs `product`. Never use target=_blank without rel, and say it opens a new tab. -#}
+{%- set buy = product.affiliateUrl | affiliateLink(store.affiliate) -%}
+{%- if buy -%}
+<a class="button button--primary" href="{{ buy }}" rel="sponsored nofollow noopener" target="_blank">{{ store.affiliate.buttonLabel | replace("{merchant}", store.affiliate.merchantLabel) }}<span class="visually-hidden"> {{ product.title }} (affiliate link, opens in a new tab)</span></a>
+{%- else -%}
+<a class="button" href="{{ product.url }}">Details<span class="visually-hidden"> for {{ product.title }}</span></a>
+{%- endif -%}

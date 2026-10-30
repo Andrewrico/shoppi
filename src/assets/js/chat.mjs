@@ -50,8 +50,10 @@ function init() {
   function card(product) {
     const cardEl = el("div", { class: "chat-card" },
       el("a", { href: product.url, class: "chat-card__title" }, product.title),
-      el("span", { class: "chat-card__price" }, product.priceLabel));
-    if (product.variants.length === 1 && product.available) {
+      ...(product.priceLabel ? [el("span", { class: "chat-card__price" }, product.priceLabel)] : []));
+    if (config.mode === "affiliate" && product.buyUrl) {
+      cardEl.append(el("a", { href: product.buyUrl, class: "button button--small", rel: "sponsored nofollow noopener", target: "_blank" }, product.buyLabel, el("span", { class: "visually-hidden" }, ` ${product.title} (affiliate link, opens in a new tab)`)));
+    } else if (product.variants.length === 1 && product.available) {
       const button = el("button", { type: "button", class: "button button--small" }, "Add to cart", el("span", { class: "visually-hidden" }, ` ${product.title}`));
       button.addEventListener("click", () => window.ShoppiCart?.add(product.variants[0].id));
       cardEl.append(button);
@@ -85,7 +87,7 @@ function init() {
         if (response.ok && data.text) reply = data;
       } catch { /* fall back to the on-page answers */ }
     }
-    reply ||= answer(knowledge, question, { cartCount: window.ShoppiCart?.totals().count || 0, config: chatConfig });
+    reply ||= answer(knowledge, question, { cartCount: window.ShoppiCart?.totals().count || 0, config: { ...chatConfig, mode: config.mode } });
 
     const extras = [
       ...(reply.cards || []).map(card),

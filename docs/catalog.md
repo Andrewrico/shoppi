@@ -35,3 +35,7 @@ SHOPIFY_STORE_DOMAIN=your-store.myshopify.com SHOPIFY_STOREFRONT_TOKEN=... npm r
 Use a Storefront token (public, read-only), not an Admin token. The query and mapping are in `lib/catalog.js` (`fetchShopify`, `fromShopify`) and are unit tested against a sample response. It has not been run against a live store in this repo, so try it on a development store first. If credentials are missing the build warns and uses the local files.
 
 Rebuild when the catalog changes (a webhook that triggers your host's build hook works well). The cart re-checks prices and stock from the published `/catalog.json` each visit.
+
+## Feeds, APIs and custom adapters
+
+A network CSV/JSON feed, any JSON API, or your own adapter module can also be the catalog source. See [affiliate.md](affiliate.md#catalog-sources).

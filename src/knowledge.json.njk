@@ -13,16 +13,20 @@ eleventyExcludeFromCollections: true
   text: product.description,
   tags: product.tags,
   available: product.available,
-  priceLabel: (("from " + (product.priceMin | money(store.currency, store.locale))) if product.priceMin != product.priceMax else (product.priceMin | money(store.currency, store.locale))),
+  priceLabel: ("" if (mode == "affiliate" and not store.affiliate.showPrices) else (("from " + (product.priceMin | money(store.currency, store.locale))) if product.priceMin != product.priceMax else (product.priceMin | money(store.currency, store.locale)))),
+  buyUrl: (product.affiliateUrl | affiliateLink(store.affiliate)),
+  buyLabel: (store.affiliate.buttonLabel | replace("{merchant}", store.affiliate.merchantLabel)),
   variants: product.variants
 } | json | safe }},
 {%- endfor %}
 {%- for faq in faqs %}
 {{ { kind: "faq", title: faq.q, url: "/faqs/", text: faq.a } | json | safe }},
 {%- endfor %}
+{%- if mode != "affiliate" %}
 {{ { kind: "policy", title: "Shipping", url: "/faqs/", text: (store.policies.shipping + " " + store.shipping.note) | trim } | json | safe }},
+{%- endif %}
 {%- for page in collections.all %}{% set tags = page.data.tags or [] %}{% if page.data.knowledge or "posts" in tags %}
 {{ { kind: ("post" if "posts" in tags else "page"), title: page.data.title, url: page.url, text: (page.data.description or "") } | json | safe }},
 {%- endif %}{% endfor %}
-{{ { kind: "policy", title: "Returns", url: "/faqs/", text: store.policies.returns } | json | safe }}
+{{ ({ kind: "policy", title: "Affiliate disclosure", url: "/faqs/", text: store.affiliate.disclosure } if mode == "affiliate" else { kind: "policy", title: "Returns", url: "/faqs/", text: store.policies.returns }) | json | safe }}
 ]

@@ -4,7 +4,7 @@ eleventyExcludeFromCollections: true
 ---
 // Offline shell: network first for pages and data, cache fallback. Cart prices always come from the network when online.
 const CACHE = "shell-{{ build.year }}-v1";
-const SHELL = ["/", "/products/", "/cart/", "/assets/css/base.css", "/assets/css/commerce.css", "/assets/css/widgets.css", "/assets/js/main.mjs"];
+const SHELL = ["/", "/products/", {% if mode != "affiliate" %}"/cart/", {% endif %}"/assets/css/base.css", "/assets/css/commerce.css", "/assets/css/widgets.css", "/assets/js/main.mjs"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)).then(() => self.skipWaiting()));

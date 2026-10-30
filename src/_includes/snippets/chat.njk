@@ -8,9 +8,13 @@
     </header>
     <div class="chat__log" data-chat-log role="log" aria-live="polite" aria-relevant="additions"></div>
     <div class="chat__chips" data-chat-chips>
+      {%- if mode == "affiliate" %}
+      <button type="button">Affiliate disclosure</button>
+      {%- else %}
       <button type="button">Show my cart</button>
       <button type="button">Shipping</button>
       <button type="button">Returns</button>
+      {%- endif %}
       <button type="button">Talk to a person</button>
     </div>
     <form class="chat__form" data-chat-form>

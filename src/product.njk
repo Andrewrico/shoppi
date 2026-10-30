@@ -6,19 +6,20 @@
   eleventyComputed: {
     title: (data) => data.product.title,
     description: (data) => data.product.description,
-    jsonLd: (data) => ({
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: data.product.title,
-      description: data.product.description,
-      offers: {
-        "@type": "AggregateOffer",
-        priceCurrency: data.store.currency,
-        lowPrice: (data.product.priceMin / 100).toFixed(2),
-        highPrice: (data.product.priceMax / 100).toFixed(2),
-        availability: data.product.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      },
-    }),
+    jsonLd: (data) => {
+      const product = { "@context": "https://schema.org", "@type": "Product", name: data.product.title, description: data.product.description };
+      if (data.mode === "affiliate") return product;
+      return {
+        ...product,
+        offers: {
+          "@type": "AggregateOffer",
+          priceCurrency: data.store.currency,
+          lowPrice: (data.product.priceMin / 100).toFixed(2),
+          highPrice: (data.product.priceMax / 100).toFixed(2),
+          availability: data.product.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        },
+      };
+    },
   },
 }
 ---
@@ -34,6 +35,12 @@
     <div class="product__media">{% include "snippets/product-image.njk" %}</div>
     <div class="product__info">
       <h1>{{ product.title }}</h1>
+      {%- if mode == "affiliate" %}
+      {%- if store.affiliate.showPrices %}<p class="product__price">{{ product.priceMin | money(store.currency, store.locale) }}</p>{% endif %}
+      <p>{{ product.description }}</p>
+      {%- if product.available %}<p>{% include "snippets/affiliate-button.njk" %}</p>{% else %}<p><span class="badge">Unavailable</span></p>{% endif %}
+      <p class="product__disclosure">{{ store.affiliate.disclosure }}</p>
+      {%- else %}
       <p class="product__price">{{ product.priceMin | money(store.currency, store.locale) }}{% if product.priceMin != product.priceMax %} – {{ product.priceMax | money(store.currency, store.locale) }}{% endif %}</p>
       <p>{{ product.description }}</p>
       {%- if product.available %}
@@ -49,6 +56,7 @@
         <button type="submit" class="button button--primary" data-add-to-cart>Add to cart</button>
       </form>
       {%- else %}<p><span class="badge">Sold out</span></p>{% endif %}
+      {%- endif %}
     </div>
   </div>
 </div>
