@@ -24,6 +24,8 @@ It combines two earlier projects: **Jam11ty** (the original name of this repo: a
 | **Affiliate mode** | Switch to outbound affiliate links with a disclosure banner, no cart and hidden prices. Catalog from a network feed, any JSON API, or your own adapter. See [docs/affiliate.md](docs/affiliate.md). |
 | **Also** | Blog with RSS, offline shell service worker, web manifest, Decap CMS config, design tokens in one JSON file. |
 
+**Live demo:** [shoppi-homepage.netlify.app](https://shoppi-homepage.netlify.app/)
+
 ## Quick start
 
 Requires Node.js 20 or newer.
@@ -44,6 +46,7 @@ npm run verify     # build + unit tests + structure checks + axe-core
 | Colors, fonts, layout width | `src/_data/tokens.json` |
 | Products and collections | `src/_data/catalog/*.json`, or a feed, API or adapter (see [docs/catalog.md](docs/catalog.md), [docs/affiliate.md](docs/affiliate.md)) |
 | Store or affiliate mode | `mode` in `src/_data/store.json` |
+| Site address (canonical, sitemap) | `SITE_URL` at build time, or `url` in `src/_data/site.json` (see [docs/deploy.md](docs/deploy.md)) |
 | Menus | `src/_data/navigation.json` |
 | FAQs (feed the FAQ page, JSON-LD and the chat) | `src/_data/faqs.json` |
 

@@ -1,0 +1,7 @@
+# Netlify settings. SITE_URL is not needed here: Netlify provides URL (your site's address) and Shoppi reads it.
+[build]
+  command = "npm run build"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "22"
