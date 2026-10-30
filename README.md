@@ -1,6 +1,6 @@
 # Shoppi
 
-A headless ecommerce starter for [Eleventy](https://www.11ty.dev/). Static pages, a product catalog, a browser cart, a built-in HTML chat and accessibility tools. No framework and no bundler; the only dependencies are Eleventy and its RSS plugin.
+A headless ecommerce and affiliate starter for [Eleventy](https://www.11ty.dev/). Static pages, a product catalog (from JSON, Shopify, a network feed or any API), a browser cart, an affiliate mode, a built-in HTML chat and accessibility tools. No framework and no bundler; the only dependencies are Eleventy and its RSS plugin.
 
 It combines two earlier projects: **Jam11ty** (the original name of this repo: an Eleventy starter theme with design tokens, navigation data, CMS config and a service worker) and the **Eleventify** theme behind andrewrico.com (accessibility widget, on-page chat, structured data, `llms.txt`), rebuilt around commerce. See [NOTICE.md](NOTICE.md).
 
