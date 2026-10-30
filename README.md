@@ -6,6 +6,12 @@ It combines two earlier projects: **Jam11ty** (the original name of this repo: a
 
 **Built on this lineage:** [andrewrico.com](https://andrewrico.com) runs on the Eleventify theme that Shoppi descends from.
 
+## Screenshots
+
+| Store mode: cart, chat | Affiliate mode: outbound links, disclosure |
+|---|---|
+| ![Shoppi store mode: navy header and hero, product grid, and the chat answering a product question](docs/screenshot-store.png) | ![Shoppi affiliate mode: disclosure banner, "View on the store" buttons, and the chat linking out to a product](docs/screenshot-affiliate.png) |
+
 ## What you get
 
 | | |
