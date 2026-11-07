@@ -1,0 +1,11 @@
+<dialog id="quick-view" class="quick-view" aria-label="Quick view">
+  <div class="quick-view__bar"><a data-quick-view-link href="/products/">View full details</a><button type="button" class="icon-button" data-quick-view-close aria-label="Close quick view">&times;</button></div>
+  <div data-quick-view-body></div>
+</dialog>
+{%- if storefront.newsletter.endpoint and storefront.newsletter.popup %}
+<dialog id="newsletter-popup" class="newsletter-popup" aria-labelledby="newsletter-popup-title" data-delay="{{ storefront.newsletter.popupDelaySeconds }}">
+  <div class="quick-view__bar"><h2 id="newsletter-popup-title">{{ storefront.newsletter.title }}</h2><button type="button" class="icon-button" data-newsletter-close aria-label="Close">&times;</button></div>
+  <p>{{ storefront.newsletter.text }}</p>
+  {% set newsletterId = "newsletter-popup-email" %}{% include "snippets/newsletter-form.njk" %}
+</dialog>
+{%- endif %}

@@ -1,0 +1,8 @@
+<form class="newsletter" data-newsletter-form data-endpoint="{{ storefront.newsletter.endpoint }}">
+  <label for="{{ newsletterId }}">Email address</label>
+  <div class="newsletter__row">
+    <input id="{{ newsletterId }}" type="email" name="email" autocomplete="email" required>
+    <button type="submit" class="button button--primary">Subscribe</button>
+  </div>
+  <p class="meta" role="status" data-newsletter-status></p>
+</form>

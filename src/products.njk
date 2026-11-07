@@ -7,7 +7,6 @@ knowledge: true
 ---
 <div class="container section">
   <h1>All products</h1>
-  <div class="product-grid">
-    {%- for product in catalog.products %}{% include "snippets/product-card.njk" %}{% endfor %}
-  </div>
+  {% set products = catalog.products %}{% set showCollectionFilter = true %}
+  {% include "snippets/shop-listing.njk" %}
 </div>

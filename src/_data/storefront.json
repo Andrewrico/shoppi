@@ -1,0 +1,30 @@
+{
+  "_comment": "Storefront copy and merchandising. Everything here is sample text: replace it with your own, and only advertise offers you actually run.",
+  "homeLayout": "spotlight",
+  "_homeLayout_comment": "spotlight | split | catalog",
+  "shop": {
+    "filters": "side",
+    "_comment": "side | top"
+  },
+  "promo": "Demo store: sample products and prices. Edit this message in src/_data/storefront.json.",
+  "hero": {
+    "eyebrow": "New season",
+    "title": "Find something you'll keep",
+    "lead": "Well-made everyday goods, in one easy place to browse.",
+    "cta": "Shop all products"
+  },
+  "deal": {
+    "_comment": "Set handle to a product with a compareAtPrice. The section disappears when endsAt passes; it never resets itself. Set handle to null to remove it.",
+    "handle": "day-backpack",
+    "label": "Sample offer",
+    "endsAt": "2027-03-31T23:59:59Z"
+  },
+  "newsletter": {
+    "_comment": "Hidden until you set endpoint to a URL that accepts POST {\"email\"}. popup also opens a dialog once, after popupDelaySeconds.",
+    "endpoint": null,
+    "popup": false,
+    "popupDelaySeconds": 8,
+    "title": "Join the newsletter",
+    "text": "Occasional news from the store. Unsubscribe any time."
+  }
+}

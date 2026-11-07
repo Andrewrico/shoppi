@@ -40,3 +40,21 @@ test("fetchShopify sends the token and surfaces errors", async () => {
   assert.equal(seen.init.headers["X-Shopify-Storefront-Access-Token"], "tok");
   await assert.rejects(fetchShopify("s", "t", async () => ({ ok: false, status: 401 })), /401/);
 });
+
+test("images: uses the images list, falls back to image, and related stays in the collection", () => {
+  const { relatedProducts } = require("../lib/catalog");
+  const base = { handle: "a", title: "A", price: 1 };
+  assert.deepEqual(normalizeProduct({ ...base, images: [{ src: "/1.svg", alt: "one" }, { src: "/2.svg" }] }).images, [{ src: "/1.svg", alt: "one" }, { src: "/2.svg", alt: "" }]);
+  assert.equal(normalizeProduct({ ...base, images: [{ src: "/1.svg", alt: "one" }] }).image, "/1.svg");
+  assert.deepEqual(normalizeProduct({ ...base, image: "/x.jpg", imageAlt: "x" }).images, [{ src: "/x.jpg", alt: "x" }]);
+  assert.deepEqual(normalizeProduct(base).images, []);
+  const products = [{ handle: "a", collection: "c" }, { handle: "b", collection: "c" }, { handle: "d", collection: "e" }, { handle: "f", collection: null }];
+  assert.deepEqual(relatedProducts(products, products[0]).map((p) => p.handle), ["b"]);
+  assert.deepEqual(relatedProducts(products, products[3]), []);
+});
+
+test("variant image is kept when set and null otherwise", () => {
+  const product = normalizeProduct({ handle: "a", title: "A", variants: [{ id: "1", price: 1, image: "/1.svg" }, { id: "2", price: 1 }] });
+  assert.equal(product.variants[0].image, "/1.svg");
+  assert.equal(product.variants[1].image, null);
+});

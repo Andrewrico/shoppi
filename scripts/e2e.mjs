@@ -50,7 +50,7 @@ await page.waitForFunction(() => document.querySelector("[data-cart-count]").tex
 ok("cart persists on reload (2)", true);
 // product page w/ variants
 await page.goto(base + "/products/canvas-tote/");
-await page.selectOption("#variant", "canvas-tote-black");
+await page.click('label[for="variant-canvas-tote-black"]');
 await page.click("button[data-add-to-cart]");
 await page.waitForFunction(() => document.querySelector("[data-cart-count]").textContent === "3");
 ok("variant add -> 3 items; dialog opened by form", await page.evaluate(() => document.getElementById("cart-dialog").open));
@@ -60,7 +60,7 @@ ok("preview checkout explains itself", (await page.textContent(".cart-checkout-s
 await page.keyboard.press("Escape");
 // sold out product has no add button
 await page.goto(base + "/products/linen-throw/");
-ok("sold out has no add button", (await page.locator("button[data-add-to-cart]").count()) === 0);
+ok("sold out has no add button", (await page.locator(".product button[data-add-to-cart]").count()) === 0);
 // cart page renders inline
 await page.goto(base + "/cart/");
 await page.waitForSelector("[data-cart-page] .cart-line");

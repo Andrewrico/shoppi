@@ -12,7 +12,6 @@
 <div class="container section">
   <h1>{{ collection.title }}</h1>
   <p>{{ collection.description }}</p>
-  <div class="product-grid">
-    {%- for product in collection.products %}{% include "snippets/product-card.njk" %}{% endfor %}
-  </div>
+  {% set products = collection.products %}{% set showCollectionFilter = false %}
+  {% include "snippets/shop-listing.njk" %}
 </div>

@@ -8,20 +8,92 @@
   },
 }
 ---
-<section class="hero">
-  <div class="container">
-    <h1>{{ site.name }}</h1>
-    <p class="hero__lead">{{ site.tagline }}. Static pages, a fast cart, a built-in chat and accessibility tools, with no framework to maintain.</p>
-    <a class="button button--primary" href="/products/">Shop all products</a>
+{%- set homeLayout = storefront.homeLayout or "spotlight" %}
+{%- if homeLayout == "split" %}
+{%- set lead = catalog.products | first %}
+<section class="container home-split">
+  <div class="home-split__copy">
+    <p class="eyebrow">{{ storefront.hero.eyebrow }}</p>
+    <h1>{{ storefront.hero.title }}</h1>
+    <p class="home-hero__lead">{{ storefront.hero.lead }}</p>
+    <a class="button button--primary" href="/products/">{{ storefront.hero.cta }}</a>
+  </div>
+  {%- if lead %}
+  {% set product = lead %}
+  <a class="home-split__media" href="{{ lead.url }}" tabindex="-1" aria-hidden="true">{% include "snippets/product-image.njk" %}</a>
+  {%- endif %}
+</section>
+{%- if catalog.collections.length %}
+<ul class="container home-strip" aria-label="Collections">
+  {%- for collection in catalog.collections %}
+  <li class="collection-tile"><a href="{{ collection.url }}">{{ collection.title }}</a><span>{{ collection.description }}</span></li>
+  {%- endfor %}
+</ul>
+{%- endif %}
+{%- elif homeLayout == "catalog" %}
+<section class="home-banner">
+  <div class="container home-banner__inner">
+    <div>
+      <p class="eyebrow">{{ storefront.hero.eyebrow }}</p>
+      <h1>{{ storefront.hero.title }}</h1>
+    </div>
+    <a class="button button--primary" href="/products/">{{ storefront.hero.cta }}</a>
   </div>
 </section>
+{%- else %}
+<div class="container home-hero">
+  <section class="home-hero__main">
+    <p class="eyebrow">{{ storefront.hero.eyebrow }}</p>
+    <h1>{{ storefront.hero.title }}</h1>
+    <p class="home-hero__lead">{{ storefront.hero.lead }}</p>
+    <a class="button button--primary" href="/products/">{{ storefront.hero.cta }}</a>
+  </section>
+  {%- if catalog.collections.length %}
+  <ul class="home-hero__tiles" aria-label="Collections">
+    {%- for collection in catalog.collections | head(2) %}
+    <li class="collection-tile">
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+      <span>{{ collection.description }}</span>
+      <span class="collection-tile__count">{{ collection.products.length }} {{ "item" if collection.products.length == 1 else "items" }}</span>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+</div>
+{%- endif %}
 <section class="container section" aria-labelledby="featured-title">
-  <h2 id="featured-title">Featured products</h2>
+  <div class="section-heading">
+    <h2 id="featured-title">Featured products</h2>
+    <a href="/products/">View all<span class="visually-hidden"> products</span></a>
+  </div>
   {% set cardHeading = "h3" %}
   <div class="product-grid">
     {%- for product in catalog.products | head(4) %}{% include "snippets/product-card.njk" %}{% endfor %}
   </div>
 </section>
+{%- if mode != "affiliate" and storefront.deal.handle and (storefront.deal.endsAt | isFuture) %}
+{%- for product in catalog.products %}
+{%- if product.handle == storefront.deal.handle and product.available and product.variants[0].compareAtPrice %}
+<section class="deal" aria-labelledby="deal-title" data-deal data-ends-at="{{ storefront.deal.endsAt }}">
+  <div class="container deal__inner">
+    <a class="deal__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">{% include "snippets/product-image.njk" %}</a>
+    <div class="deal__body">
+      <p class="eyebrow">{{ storefront.deal.label }}</p>
+      <h2 id="deal-title"><a href="{{ product.url }}">{{ product.title }}</a></h2>
+      <p class="deal__price">{{ product.variants[0].price | money(store.currency, store.locale) }} <s><span class="visually-hidden">Regular price </span>{{ product.variants[0].compareAtPrice | money(store.currency, store.locale) }}</s></p>
+      <p class="deal__ends">Ends {{ storefront.deal.endsAt | readableDate }}<span class="deal__timer" role="timer" data-deal-timer hidden></span></p>
+      {%- if product.variants.length == 1 %}
+      <button type="button" class="button button--primary" data-add-to-cart data-variant-id="{{ product.variants[0].id }}">Add to cart<span class="visually-hidden"> {{ product.title }}</span></button>
+      {%- else %}
+      <a class="button button--primary" href="{{ product.url }}">Choose options<span class="visually-hidden"> for {{ product.title }}</span></a>
+      {%- endif %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- if catalog.collections.length > 2 %}
 <section class="container section" aria-labelledby="collections-title">
   <h2 id="collections-title">Shop by collection</h2>
   <ul class="card-list">
@@ -30,3 +102,4 @@
     {%- endfor %}
   </ul>
 </section>
+{%- endif %}

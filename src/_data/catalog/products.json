@@ -8,25 +8,37 @@
       "tote",
       "canvas"
     ],
-    "image": null,
-    "imageAlt": "",
+    "image": "/assets/images/products/canvas-tote-1.svg",
+    "imageAlt": "Canvas tote in natural canvas, illustration",
     "variants": [
       {
         "id": "canvas-tote-natural",
         "title": "Natural",
         "price": 28.0,
         "available": true,
-        "shopifyVariantId": "1000000001"
+        "shopifyVariantId": "1000000001",
+        "image": "/assets/images/products/canvas-tote-1.svg"
       },
       {
         "id": "canvas-tote-black",
         "title": "Black",
         "price": 28.0,
         "available": true,
-        "shopifyVariantId": "1000000002"
+        "shopifyVariantId": "1000000002",
+        "image": "/assets/images/products/canvas-tote-2.svg"
       }
     ],
-    "affiliateUrl": "https://example.com/go/canvas-tote"
+    "affiliateUrl": "https://example.com/go/canvas-tote",
+    "images": [
+      {
+        "src": "/assets/images/products/canvas-tote-1.svg",
+        "alt": "Canvas tote in natural canvas, illustration"
+      },
+      {
+        "src": "/assets/images/products/canvas-tote-2.svg",
+        "alt": "Canvas tote in black canvas, illustration"
+      }
+    ]
   },
   {
     "handle": "day-backpack",
@@ -36,8 +48,8 @@
     "tags": [
       "backpack"
     ],
-    "image": null,
-    "imageAlt": "",
+    "image": "/assets/images/products/day-backpack-1.svg",
+    "imageAlt": "Backpack in green, illustration",
     "variants": [
       {
         "id": "day-backpack-default",
@@ -48,7 +60,17 @@
         "shopifyVariantId": "1000000003"
       }
     ],
-    "affiliateUrl": "https://example.com/go/day-backpack"
+    "affiliateUrl": "https://example.com/go/day-backpack",
+    "images": [
+      {
+        "src": "/assets/images/products/day-backpack-1.svg",
+        "alt": "Backpack in green, illustration"
+      },
+      {
+        "src": "/assets/images/products/day-backpack-2.svg",
+        "alt": "Backpack in rust, illustration"
+      }
+    ]
   },
   {
     "handle": "ceramic-mug",
@@ -59,8 +81,8 @@
       "mug",
       "kitchen"
     ],
-    "image": null,
-    "imageAlt": "",
+    "image": "/assets/images/products/ceramic-mug-1.svg",
+    "imageAlt": "Ceramic mug in blue glaze, illustration",
     "variants": [
       {
         "id": "ceramic-mug-default",
@@ -70,7 +92,17 @@
         "shopifyVariantId": "1000000004"
       }
     ],
-    "affiliateUrl": "https://example.com/go/ceramic-mug"
+    "affiliateUrl": "https://example.com/go/ceramic-mug",
+    "images": [
+      {
+        "src": "/assets/images/products/ceramic-mug-1.svg",
+        "alt": "Ceramic mug in blue glaze, illustration"
+      },
+      {
+        "src": "/assets/images/products/ceramic-mug-2.svg",
+        "alt": "Ceramic mug in sand glaze, illustration"
+      }
+    ]
   },
   {
     "handle": "linen-throw",
@@ -80,8 +112,8 @@
     "tags": [
       "blanket"
     ],
-    "image": null,
-    "imageAlt": "",
+    "image": "/assets/images/products/linen-throw-1.svg",
+    "imageAlt": "Linen throw in sage, illustration",
     "variants": [
       {
         "id": "linen-throw-default",
@@ -91,6 +123,16 @@
         "shopifyVariantId": "1000000005"
       }
     ],
-    "affiliateUrl": "https://example.com/go/linen-throw"
+    "affiliateUrl": "https://example.com/go/linen-throw",
+    "images": [
+      {
+        "src": "/assets/images/products/linen-throw-1.svg",
+        "alt": "Linen throw in sage, illustration"
+      },
+      {
+        "src": "/assets/images/products/linen-throw-2.svg",
+        "alt": "Linen throw in dusty rose, illustration"
+      }
+    ]
   }
 ]

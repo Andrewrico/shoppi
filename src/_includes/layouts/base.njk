@@ -42,6 +42,7 @@
   </main>
   {% include "snippets/footer.njk" %}
   {% if mode != "affiliate" %}{% include "snippets/cart-dialog.njk" %}{% endif %}
+  {% include "snippets/storefront-dialogs.njk" %}
   {% include "snippets/chat.njk" %}
   {% include "snippets/a11y-widget.njk" %}
   <script type="application/json" id="store-config">{{ clientConfig | json | safe }}</script>

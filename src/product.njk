@@ -32,7 +32,16 @@
     </ol>
   </nav>
   <div class="product">
-    <div class="product__media">{% include "snippets/product-image.njk" %}</div>
+    <div class="product__media" data-gallery>
+      <div class="product__stage">{% include "snippets/product-image.njk" %}</div>
+      {%- if product.images.length > 1 %}
+      <div class="product__thumbs" role="group" aria-label="Product images">
+        {%- for image in product.images %}
+        <button type="button" class="product__thumb" data-gallery-thumb data-src="{{ image.src }}" data-alt="{{ image.alt }}" aria-pressed="{{ 'true' if loop.first else 'false' }}"><img src="{{ image.src }}" alt="" width="96" height="96" loading="lazy"><span class="visually-hidden">Show image {{ loop.index }}: {{ image.alt }}</span></button>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+    </div>
     <div class="product__info">
       <h1>{{ product.title }}</h1>
       {%- if mode == "affiliate" %}
@@ -41,22 +50,44 @@
       {%- if product.available %}<p>{% include "snippets/affiliate-button.njk" %}</p>{% else %}<p><span class="badge">Unavailable</span></p>{% endif %}
       <p class="product__disclosure">{{ store.affiliate.disclosure }}</p>
       {%- else %}
-      <p class="product__price">{{ product.priceMin | money(store.currency, store.locale) }}{% if product.priceMin != product.priceMax %} – {{ product.priceMax | money(store.currency, store.locale) }}{% endif %}</p>
+      <p class="product__price" data-product-price aria-live="polite">{{ product.priceMin | money(store.currency, store.locale) }}{% if product.priceMin != product.priceMax %} – {{ product.priceMax | money(store.currency, store.locale) }}{% endif %}</p>
       <p>{{ product.description }}</p>
       {%- if product.available %}
       <form class="product__form" data-open-cart>
         {%- if product.variants.length > 1 %}
-        <label for="variant">Option</label>
-        <select id="variant" name="variant">
-          {%- for variant in product.variants %}<option value="{{ variant.id }}"{% if not variant.available %} disabled{% endif %}>{{ variant.title }} · {{ variant.price | money(store.currency, store.locale) }}{% if not variant.available %} (sold out){% endif %}</option>{% endfor %}
-        </select>
+        <fieldset class="variant-picker">
+          <legend>Option</legend>
+          {%- set picked = false %}
+          {%- for variant in product.variants %}
+          <input type="radio" class="visually-hidden" id="variant-{{ variant.id }}" name="variant" value="{{ variant.id }}" data-price-text="{{ variant.price | money(store.currency, store.locale) }}"{% if variant.image %} data-image="{{ variant.image }}"{% endif %}{% if not variant.available %} disabled{% elif not picked %} checked{% set picked = true %}{% endif %}>
+          <label for="variant-{{ variant.id }}">{{ variant.title }}{% if not variant.available %} (sold out){% endif %}</label>
+          {%- endfor %}
+        </fieldset>
         {%- else %}<input type="hidden" name="variant" value="{{ product.variants[0].id }}">{% endif %}
         <label for="qty">Quantity</label>
-        <input id="qty" name="qty" type="number" min="1" max="99" value="1" inputmode="numeric">
+        <div class="qty-stepper">
+          <button type="button" data-qty-step="-1" aria-label="Decrease quantity">&minus;</button>
+          <input id="qty" name="qty" type="number" min="1" max="99" value="1" inputmode="numeric">
+          <button type="button" data-qty-step="1" aria-label="Increase quantity">+</button>
+        </div>
         <button type="submit" class="button button--primary" data-add-to-cart>Add to cart</button>
       </form>
       {%- else %}<p><span class="badge">Sold out</span></p>{% endif %}
       {%- endif %}
+      <div class="product__tools">
+        <button type="button" class="button" data-wishlist-toggle="{{ product.handle }}" aria-pressed="false" aria-label="Wishlist: {{ product.title }}">{% include "snippets/icon-heart.njk" %}<span>Wishlist</span></button>
+        <button type="button" class="button" data-compare-toggle="{{ product.handle }}" aria-pressed="false" aria-label="Compare: {{ product.title }}">{% include "snippets/icon-compare.njk" %}<span>Compare</span></button>
+      </div>
     </div>
   </div>
+  {%- set relatedItems = catalog.products | related(product, 4) %}
+  {%- if relatedItems.length %}
+  <section class="section" aria-labelledby="related-title">
+    <h2 id="related-title">You may also like</h2>
+    {% set cardHeading = "h3" %}{% set noQuickView = true %}
+    <div class="product-grid">
+      {%- for product in relatedItems %}{% include "snippets/product-card.njk" %}{% endfor %}
+    </div>
+  </section>
+  {%- endif %}
 </div>

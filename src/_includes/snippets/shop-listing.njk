@@ -1,0 +1,49 @@
+<div class="shop{% if storefront.shop.filters == 'top' %} shop--top{% endif %}" data-listing>
+  <details class="shop__filters" data-filters hidden>
+    <summary>Filters</summary>
+    <form data-filter-form>
+      <div class="filter-check"><input type="checkbox" id="filter-stock" name="inStock"><label for="filter-stock">In stock only</label></div>
+      {%- if showCollectionFilter and catalog.collections.length > 1 %}
+      <fieldset>
+        <legend>Collection</legend>
+        {%- for collection in catalog.collections %}
+        <div class="filter-check"><input type="checkbox" id="filter-{{ collection.handle }}" name="collection" value="{{ collection.handle }}"><label for="filter-{{ collection.handle }}">{{ collection.title }}</label></div>
+        {%- endfor %}
+      </fieldset>
+      {%- endif %}
+      {%- if mode != "affiliate" or store.affiliate.showPrices %}
+      <fieldset>
+        <legend>Price ({{ store.currency }})</legend>
+        <div class="filter-price">
+          <label for="filter-min">From</label><input id="filter-min" name="min" type="number" min="0" step="1" inputmode="decimal">
+          <label for="filter-max">To</label><input id="filter-max" name="max" type="number" min="0" step="1" inputmode="decimal">
+        </div>
+      </fieldset>
+      {%- endif %}
+      <button type="reset" class="link-button">Clear filters</button>
+    </form>
+  </details>
+  <div class="shop__results">
+    <div class="shop__toolbar" data-toolbar hidden>
+      <p class="meta shop__status" role="status" data-search-status></p>
+      <div class="shop__sort">
+        <label for="shop-sort">Sort by</label>
+        <select id="shop-sort" data-sort>
+          <option value="featured">Featured</option>
+          {%- if mode != "affiliate" or store.affiliate.showPrices %}
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          {%- endif %}
+          <option value="title-asc">Name: A to Z</option>
+        </select>
+      </div>
+      <div class="shop__view" role="group" aria-label="Layout">
+        <button type="button" class="button button--small" data-view="grid" aria-pressed="true">Grid</button>
+        <button type="button" class="button button--small" data-view="list" aria-pressed="false">List</button>
+      </div>
+    </div>
+    <div class="product-grid" data-product-list>
+      {%- for product in products %}{% include "snippets/product-card.njk" %}{% endfor %}
+    </div>
+  </div>
+</div>

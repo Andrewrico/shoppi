@@ -1,0 +1,14 @@
+---
+layout: layouts/base.njk
+title: Wishlist
+description: Products you saved in this browser.
+permalink: /wishlist/
+---
+<div class="container section">
+  <h1>Wishlist</h1>
+  <p class="meta">Saved in this browser only.</p>
+  <p role="status" data-wishlist-status></p>
+  <div class="product-grid" data-wishlist-grid>
+    {%- for product in catalog.products %}{% include "snippets/product-card.njk" %}{% endfor %}
+  </div>
+</div>

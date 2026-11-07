@@ -4,12 +4,14 @@
     { "text": "Collections", "url": "/collections/" },
     { "text": "Blog", "url": "/blog/" },
     { "text": "About", "url": "/about/" },
-    { "text": "FAQs", "url": "/faqs/" }
+    { "text": "FAQs", "url": "/faqs/" },
+    { "text": "Contact", "url": "/contact/" }
   ],
   "footer": [
     { "text": "Shop all", "url": "/products/" },
     { "text": "FAQs", "url": "/faqs/" },
     { "text": "About", "url": "/about/" },
-    { "text": "Blog", "url": "/blog/" }
+    { "text": "Blog", "url": "/blog/" },
+    { "text": "Contact", "url": "/contact/" }
   ]
 }

@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+title: Compare products
+description: Compare the products you picked side by side.
+permalink: /compare/
+---
+<div class="container section">
+  <h1>Compare products</h1>
+  <p role="status" data-compare-status></p>
+  <div class="compare-table" data-compare-table></div>
+  <script type="application/json" data-compare-data>[
+  {%- for product in catalog.products %}
+  {{ {
+    handle: product.handle, title: product.title, url: product.url, image: product.image, imageAlt: product.imageAlt,
+    price: (product.priceMin | money(store.currency, store.locale)) if (mode != "affiliate" or store.affiliate.showPrices) else null,
+    collection: product.collection | capitalize, available: product.available, description: product.description,
+    options: product.variants | length
+  } | json | safe }}{{ "," if not loop.last }}
+  {%- endfor %}
+  ]</script>
+</div>

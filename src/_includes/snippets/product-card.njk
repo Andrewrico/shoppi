@@ -1,5 +1,17 @@
-<article class="product-card">
-  <a class="product-card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">{% include "snippets/product-image.njk" %}</a>
+<article class="product-card" data-search-text="{{ product.title }} {{ product.description }} {{ product.collection }} {{ product.tags | join(' ') }}" data-handle="{{ product.handle }}" data-title="{{ product.title }}" data-collection="{{ product.collection }}" data-available="{{ product.available }}" data-order="{{ loop.index }}"{% if mode != "affiliate" or store.affiliate.showPrices %} data-price="{{ product.priceMin }}"{% endif %}>
+  {%- if mode != "affiliate" and product.available and product.variants[0].compareAtPrice %}
+  <span class="badge product-card__badge">Save {{ (100 - product.variants[0].price * 100 / product.variants[0].compareAtPrice) | round }}%</span>
+  {%- endif %}
+  <div class="product-card__actions">
+    <button type="button" class="card-action" data-wishlist-toggle="{{ product.handle }}" aria-pressed="false" aria-label="Wishlist: {{ product.title }}">{% include "snippets/icon-heart.njk" %}</button>
+    <button type="button" class="card-action" data-compare-toggle="{{ product.handle }}" aria-pressed="false" aria-label="Compare: {{ product.title }}">{% include "snippets/icon-compare.njk" %}</button>
+  </div>
+  <div class="product-card__frame">
+    <a class="product-card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">{% include "snippets/product-image.njk" %}</a>
+    {%- if not noQuickView %}
+    <a class="product-card__quick" href="{{ product.url }}" data-quick-view>Quick view<span class="visually-hidden"> of {{ product.title }}</span></a>
+    {%- endif %}
+  </div>
   {% set tag = cardHeading or "h2" %}<{{ tag }} class="product-card__title"><a href="{{ product.url }}">{{ product.title }}</a></{{ tag }}>
   {%- if mode == "affiliate" %}
   {%- if store.affiliate.showPrices %}<p class="product-card__price">{{ product.priceMin | money(store.currency, store.locale) }}</p>{% endif %}

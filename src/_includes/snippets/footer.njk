@@ -1,11 +1,30 @@
 <footer class="site-footer">
-  <div class="container site-footer__inner">
+  <div class="container">
     {%- if mode == "affiliate" %}<p class="site-footer__disclosure">{{ store.affiliate.disclosure }}</p>{% endif %}
-    <p>&copy; {{ build.year }} {{ site.name }}. <a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
-    <nav aria-label="Footer">
-      <ul class="site-nav">
-        {%- for item in navigation.footer %}<li><a href="{{ item.url }}">{{ item.text }}</a></li>{% endfor %}
-      </ul>
-    </nav>
+    <div class="site-footer__columns">
+      <div>
+        <p class="site-footer__brand">{{ site.name }}</p>
+        <p class="meta">{{ site.tagline }}</p>
+        <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      </div>
+      {%- if catalog.collections.length %}
+      <nav aria-label="Collections">
+        <p class="site-footer__heading">Collections</p>
+        <ul>{% for collection in catalog.collections %}<li><a href="{{ collection.url }}">{{ collection.title }}</a></li>{% endfor %}</ul>
+      </nav>
+      {%- endif %}
+      <nav aria-label="Footer">
+        <p class="site-footer__heading">Store</p>
+        <ul>{% for item in navigation.footer %}<li><a href="{{ item.url }}">{{ item.text }}</a></li>{% endfor %}</ul>
+      </nav>
+      {%- if storefront.newsletter.endpoint %}
+      <div>
+        <p class="site-footer__heading">{{ storefront.newsletter.title }}</p>
+        <p class="meta">{{ storefront.newsletter.text }}</p>
+        {% set newsletterId = "newsletter-footer-email" %}{% include "snippets/newsletter-form.njk" %}
+      </div>
+      {%- endif %}
+    </div>
+    <p class="site-footer__legal">&copy; {{ build.year }} {{ site.name }}.</p>
   </div>
 </footer>
