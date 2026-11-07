@@ -3,7 +3,7 @@
 {%- endif %}
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="site-header__brand" href="/">{{ site.name }}</a>
+    <a class="site-header__brand" href="/">{% include "snippets/logo.njk" %}</a>
     <form class="site-search" role="search" action="/products/" method="get">
       <label class="visually-hidden" for="site-search-input">Search products</label>
       <input id="site-search-input" type="search" name="q" placeholder="Search products" autocomplete="off" data-search-input>
