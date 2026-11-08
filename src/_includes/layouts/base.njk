@@ -8,7 +8,9 @@
   <meta name="description" content="{{ (description or site.description) | excerpt(160) }}">
   <meta name="theme-color" content="{{ site.themeColor }}">
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/images/favicon.svg?v=2" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="alternate" type="application/rss+xml" title="{{ site.name }} blog" href="/feed.xml">
   <meta property="og:title" content="{{ pageTitle }}">
