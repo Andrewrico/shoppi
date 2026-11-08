@@ -10,7 +10,7 @@ It combines two earlier projects: **Jam11ty** (the original name of this repo: a
 
 | Store mode: cart, chat | Affiliate mode: outbound links, disclosure |
 |---|---|
-| ![Shoppi store mode: navy header and hero, product grid, and the chat answering a product question](docs/screenshot-store.png) | ![Shoppi affiliate mode: disclosure banner, "View on the store" buttons, and the chat linking out to a product](docs/screenshot-affiliate.png) |
+| ![Shoppi store mode: green header with the Shoppi logo and search, hero banner, collection tiles and featured products](docs/screenshot-store.png) | ![Shoppi affiliate mode: disclosure banner, shop filters and product cards with "View on the store" buttons](docs/screenshot-affiliate.png) |
 
 ## What you get
 
